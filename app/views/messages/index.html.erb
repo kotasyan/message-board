@@ -13,7 +13,22 @@
 </div>
 
 <!-- フォームを生成 -->
-<%= form_for(Message.new, html: {class: "form-horizontal"}) do |f| %>
+<%= form_for(@message, html: {class: "form-horizontal"}) do |f| %>
+    <!-- バリデーションエラーが発生した場合 -->
+    <% if @message.errors.present? %>
+        <div class="alert alert-danger">
+            <%= alert %>
+            <ul>
+                <!-- エラーメッセージを全て表示 -->
+                <% @message.errors.full_messages.each do |full_message| %>
+                    <li>
+                        <%= full_message %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    
     <div class="form-group">
         <label for="name" class="col-md-1 control-label">名前</label>
         <div class="col-md-3">
