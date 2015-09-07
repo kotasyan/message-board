@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   # messagesコントローラとindexアクションをルートに指定
   root 'messages#index'
-  # RESTfulなURLを自動生成 (POST /messages)
-  resources :messages, only: [:create]
+  # RESTfulなURLを自動生成 (index,new以外：show, create, edit, update, destroy)
+  resources :messages, except: [:index, :new]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
