@@ -1,0 +1,35 @@
+<!-- フォームを生成 -->
+<%= form_for(@message, html: {class: "form-horizontal"}) do |f| %>
+    <!-- バリデーションエラーが発生した場合 -->
+    <% if @message.errors.present? %>
+        <div class="alert alert-danger">
+            <%= alert %>
+            <ul>
+                <!-- エラーメッセージを全て表示 -->
+                <% @message.errors.full_messages.each do |full_message| %>
+                    <li>
+                        <%= full_message %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    
+    <div class="form-group">
+        <label for="name" class="col-md-1 control-label">名前</label>
+        <div class="col-md-3">
+            <%= f.text_field :name, class: "form-control", id: "name" %>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="body" class="col-md-1 control-label">内容</label>
+        <div class="col-md-8">
+            <%= f.text_area :body , class: "form-control", id: "body", rows: "5" %>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-2">
+            <%= f.submit class: "btn btn-sm btn-primary" %>
+        </div>
+    </div>
+<% end %>
