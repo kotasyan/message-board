@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  #edit,updateアクションの前に、set_messageメソッドで対象レコードを取得
+  before_action :set_message, only: [:edit, :update]
   def index
     # messagesテーブルからすべてのレコードを取得
     @messages = Message.all
@@ -21,7 +23,21 @@ class MessagesController < ApplicationController
       render 'index'
     end
   end
+  
+  def edit
+  end
 
+  def update
+    # @messageを更新
+    if @message.update(message_params)
+      # 保存に成功した場合は、トップページへリダイレクト
+      redirect_to root_path, notice: 'メッセージを編集しました'
+    else
+      # 保存に失敗した場合は、編集画面へ戻す
+      render 'edit'
+    end
+  end
+      
   # ここから下はprivateメソッド
   private
   def message_params
@@ -29,5 +45,10 @@ class MessagesController < ApplicationController
     # 返り値は ex:) {name: "入力されたname" , body: "入力されたbody" }
     # 許可されたパラメータ以外が渡された場合の挙動は？--デフォルトでは無視。
     params.require(:message).permit(:name, :body)
+  end
+  
+  def set_message
+    # Messageデータベースからデータを検索
+    @message = Message.find(params[:id])
   end
 end
