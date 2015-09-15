@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  #edit,updateアクションの前に、set_messageメソッドで対象レコードを取得
-  before_action :set_message, only: [:edit, :update]
+  #edit,update,destroyアクションの前に、set_messageメソッドで対象レコードを取得
+  before_action :set_message, only: [:edit, :update, :destroy]
   def index
     # messagesテーブルからすべてのレコードを取得
     @messages = Message.all
@@ -36,6 +36,11 @@ class MessagesController < ApplicationController
       # 保存に失敗した場合は、編集画面へ戻す
       render 'edit'
     end
+  end
+  
+  def destroy
+    @message.destroy
+    redirect_to root_path, notice: 'メッセージを削除しました'
   end
       
   # ここから下はprivateメソッド
