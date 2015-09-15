@@ -5,7 +5,7 @@
     
     <div class="panel-body">
         <% @messages.each do |message| %>
-            <span class="label label-info"><%= message.name %></span>
+            <span class="label label-info"><%= message.name %> ( <%= message.age %> )</span>
             <%= message.body %>
             <%# リンクを生成：<a href="編集ページへのパス">edit</a> %>
             (<%= link_to "edit", edit_message_path(message) %>
